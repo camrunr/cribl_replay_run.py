@@ -1,0 +1,29 @@
+{
+  "type": "collection",
+  "ttl": "5m",
+  "id": "minio",
+  "run": {
+    "rescheduleDroppedTasks": true,
+    "maxTaskReschedule": 1,
+    "jobTimeout": "300",
+    "mode": "run",
+    "timeRangeType": "relative",
+    "expression": "source.includes('mydata') && _raw.includes('garbage')",
+    "minTaskSize": "1MB",
+    "maxTaskSize": "10MB",
+    "earliest": "-1h",
+    "latest": "now"
+  },
+  "input": {
+    "type": "collection",
+    "sendToRoutes": false,
+    "metadata": [
+      {
+        "name": "__replay",
+        "value": "testapi"
+      }
+    ],
+    "output": "devnull",
+    "pipeline": "passthru"
+  }
+}
